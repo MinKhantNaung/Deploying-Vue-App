@@ -52,4 +52,34 @@ Click 'Add SSH key'
 Are you sure you want to continue connecting? (yes)  
 Now, our server is able to connect to github through SSH.
 
+## Setting Up Node.js  
+Login to ssh:  
+Before install Node.js, let's update Ubuntu server-  
+- sudo apt update  
+Enter password:   
+When done, finally install Node.js.  
+- sudo apt install nodejs (you will get lates nodejs version which is perfect fine)
+but I will install (nvm - node version manager)  
+Go to browser (https://github.com/nvm-sh/nvm)  
+Go to installing and updating section  
+You can download 'curl' or 'wget', download with 'curl' in my case.  
+Copy 'curl command' and run in command  
+- curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash  
+Next, to make nvm accessible.  
+- source ~/.bashrc  
+Now, if we execute
+- nvm ls-remote  
+We'll see a list of Node.js versions.  
+In this case, I'll use latest and LTS version  
+So copy version.  
+- nvm install v18.16.0  
+After install, verify node.js  
+- node -v  
+And see npm version  
+- npm -v  
+
+
+
+
+
 
