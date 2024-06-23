@@ -157,6 +157,28 @@ Hit 'n' to cancel  to receive compaigns:
 When successfully, go back to browser:  
 Let's refresh the page, now we have successfully install SSL.  
 
+## Deploying Vue.js app  
+Go to our remote server:  
+- cd /var/www/vueapp/
+I'll remove 'dist' directory.  
+- rm -rf dist  
+Let's pull from github repository:  
+- git clone remote_url .  
+- ls 
+Here, we see vue.js application file structure.  
+Now, install dependencies. 
+- npm install  
+Next, copy .env file if you have .env file.  
+- cp .env.example .env  
+When finish, open .env
+- vim .env  
+In .env, you can change your set up. 
+Next, build npm dependencies.  
+- npm run build  
+When complete, go to browser. Refresh.  
+Finish deploying Vue.js app.  
+
+
 
 
 
