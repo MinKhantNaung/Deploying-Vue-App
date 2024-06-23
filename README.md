@@ -78,6 +78,92 @@ After install, verify node.js
 And see npm version  
 - npm -v  
 
+## Setting up Nginx with SSL  
+Install Nginx  
+- sudo apt install nginx  
+Next, create a new folder to store vue.js application  
+- sudo mkdir -p /var/www/vueapp/dist/  
+So, whenever we build our vue.js application, a new directory will be created. And it will contains 'index.html' as the compiled version of javascript and css of our vue.js application.  
+Next, let's change the ownership of the /var/www  
+- sudo chown -R username:www-data /var/www 
+We also need to change the file mode of the directory by running this command:  
+- sudo chmod g+s /var/www 
+
+#### Next, let's define a new Nginx configuration file.  
+
+- cd /etc/nginx/  
+Then, let's create a new file.  
+Inside sites-available folder, i will create 'vueapp'.  
+- sudo vim sites-available/vueapp  
+Let's change the editor to the editor to Insert mode:  
+And then , paste codes.  
+
+- server {  
+    listen 80;  
+    server_name todo.pro www.todo.pro;  
+    charset utf-8;  
+    root /var/www/vueapp/dist;  
+    index index.html index.htm;  
+
+    location / { 
+            
+        root /var/www/vueapp/dist;  
+        try_files $uri /index.html;    
+    }  
+    error.log /var/log/nginx/vue-app-error.log;  
+    access.log /var/log/nginx/vue-app-access.log;
+}
+If you want to cancel file changes 
+- :q!
+save
+- :qw  
+Next, let's make a symlink of Nginx configuration we just created to the site-enabled folder.  
+- sudo ln -s /etc/nginx/sites-available/vueapp /etc/nginx/sites-enabled/  
+Then, let's unlink default Nginx configuration.  
+- sudo unlink /etc/nginx/sites-enabled/default
+Next, let's test our Nginx configuration.  
+- sudo nginx -t  
+will show this 'nginx: the configuration file /etc/nginx/nginx.conf test is successful'  
+Restart Nginx Service:  
+- sudo service nginx restart 
+Now, Let's create a test file to see if our configuration is working as expected.   
+- cd /var/www/vueapp/dist/
+Create a test file.  
+- sudo vim index.html  
+I will show '<h1>Hellow World</h1>'  
+- :wq  
+Go to browser, enter our domain.  
+If our domain is unavailable, come back when domain is available.  
+After available, you will see 'Hello World': 
+
+#### Let's add SSL  
+Now, Certbot recommends using snap package for installation.  So, let's install snap with:  
+- sudo snap install core  
+It could take a few minute.  
+When done, let's execute this command:  
+- sudo snap refresh core  
+Let's install Certbot using this command:  
+- sudo snap install --classic certbot 
+It stores in snap/bin/
+- sudo ln -s /snap/btn/certbot /usr/bin/certbot  
+All right, let's finall set up SSL by executing this command:
+- sudo certbot --nginx -d todo.pro
+If domain is two.
+- sudo certbot --nginx -d todo.pro -d www.todo.pro
+Enter email:  
+Then let's hit 'y' to accept terms:  
+Hit 'n' to cancel  to receive compaigns:   
+...Requesting certificate for todo.pro:  
+When successfully, go back to browser:  
+Let's refresh the page, now we have successfully install SSL.  
+
+
+
+
+
+
+
+
 
 
 
